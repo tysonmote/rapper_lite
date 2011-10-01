@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
     "lib/rapper_lite/versioning.rb",
     "lib/tasks.rb",
     "lib/yui/css_compressor.rb",
+    "rapper_lite.gemspec",
     "spec/fixtures/src/simple_1.css",
     "spec/fixtures/src/simple_1.js",
     "spec/fixtures/src/simple_2.css",
