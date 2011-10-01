@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# 
+require File.join( File.expand_path( File.dirname(__FILE__) ), '../lib/rapper_lite' )
+
+def config_path
+  return ARGV[0] if ARGV[0]
+  ["", "config/"].each do |folder|
+    ["rapper.yml", "assets.yml"].each do |file|
+      path = File.expand_path( file, folder )
+      return path if File.exists?( path )
+    end
+  end
+  raise "No config file found."
+end
+
+config = config_path
+puts "Packaging assets, using: #{config}"
+RapperLite::Engine.new( config_path ).package
+puts "Done!"
