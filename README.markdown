@@ -31,13 +31,18 @@ Bare-bones static asset packager and compressor. Currently supports CSS and Java
               - widgets
             - version: ccfc
 
-2. Load `rapper` with the config path:
+2. Run rapper lite:
 
-        engine = Rapper::Engine.new( "config/rapper.yml" )
+        $ rapper_lite config/assets.yml
 
-3. Then package the assets:
+3. That's it.
 
-        engine.package
+Alternatively, you can run Rapper from Ruby:
+
+        require "rapper_lite"
+        RapperLite::Engine.new( "config/rapper.yml" ).package
+
+When you run `rapper_lite`, the config is automatically updated with the latest version numbers.
 
 # Development
 
