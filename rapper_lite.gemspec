@@ -105,7 +105,7 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb",
     "spec/vendor_spec.rb"
   ]
-  s.homepage = "http://tysontate.github.com/rapper_lite/"
+  s.homepage = "http://github.com/tysontate/rapper_lite/"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
