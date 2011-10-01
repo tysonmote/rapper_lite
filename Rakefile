@@ -12,11 +12,11 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  gem.name = "rapper"
-  gem.homepage = "http://tysontate.github.com/rapper/"
+  gem.name = "rapper_lite"
+  gem.homepage = "http://tysontate.github.com/rapper_lite/"
   gem.license = "MIT"
-  gem.summary = %Q{Static asset packager and compressor with versioning and built-in view helpers.}
-  gem.description = %Q{Static asset packager and compressor with versioning and built-in view helpers. Compresses files only when they need compressing.}
+  gem.summary = %Q{Simple static asset packaging.}
+  gem.description = %Q{Simple static asset packaging. Compresses files only when they're updated.}
   gem.email = "tyson@tysontate.com"
   gem.authors = ["Tyson Tate"]
 end
