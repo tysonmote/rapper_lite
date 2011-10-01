@@ -53,6 +53,7 @@ Rapper's got a Gemfile. You know what to do.
 
 ## Version history
 
+* **0.0.2** - Fix gem homepage link.
 * **0.0.1** - Initial release.
 
 ## Contributing to rapper_lite
