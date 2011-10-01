@@ -29,8 +29,3 @@ Spec::Rake::SpecTask.new(:spec) do |spec|
 end
 
 task :default => :spec
-
-require 'yard'
-YARD::Rake::YardocTask.new do |config|
-  config.options = ["--private", "--protected"]
-end

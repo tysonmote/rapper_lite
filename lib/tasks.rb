@@ -13,11 +13,12 @@ module Rapper
     # `:production`.
     def initialize( namespace = :rapper, &block )
       @namespace = namespace
-      @config = {}
+      @config = {
+        :path => "rapper.yml"
+      }
       yield @config
-      @config[:env] ||= :production
-      @rapper = Rapper::Engine.new( @config[:path], @config[:env] )
-      define
+      @rapper = RapperLite::Engine.new( @config[:path] )
+      self.define
     end
     
     private
@@ -26,18 +27,9 @@ module Rapper
     # each type.
     def define
       namespace @namespace do
-        desc "Package all assets that need re-packaging"
+        desc "Package static assets that need re-packaging"
         task :package do
           @rapper.package
-        end
-        
-        namespace :package do
-          @rapper.definitions.each do |type, definition|
-            desc "Package all #{type} assets that need re-packaging"
-            task type do
-              @rapper.package( type )
-            end
-          end
         end
       end
     end

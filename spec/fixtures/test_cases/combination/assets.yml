@@ -1,5 +1,0 @@
-test:
-  definition_root: spec/fixtures/test_cases/combination/definitions
-  bundle: true
-  compress: true
-  version: false
