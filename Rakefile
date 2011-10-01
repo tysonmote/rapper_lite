@@ -13,7 +13,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   gem.name = "rapper_lite"
-  gem.homepage = "http://tysontate.github.com/rapper_lite/"
+  gem.homepage = "http://github.com/tysontate/rapper_lite/"
   gem.license = "MIT"
   gem.summary = %Q{Simple static asset packaging.}
   gem.description = %Q{Simple static asset packaging. Compresses files only when they're updated.}
