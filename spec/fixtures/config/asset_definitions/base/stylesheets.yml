@@ -1,0 +1,15 @@
+--- !omap
+- root: spec/fixtures/stylesheets
+- asset_tag_root: /stylesheets/assets
+- component_tag_root: /stylesheets
+- suffix: css
+- assets: !omap
+  - single_file: !omap
+    - files:
+      - simple_1
+    - version: '1e17'
+  - multiple_files: !omap
+    - files:
+      - simple_1
+      - simple_2
+    - version: 683e

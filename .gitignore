@@ -1,0 +1,9 @@
+doc
+.yardoc
+.bundle
+pkg
+.DS_Store
+tmtags
+*.swp
+tmp
+vendor

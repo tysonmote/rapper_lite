@@ -1,0 +1,5 @@
+test:
+  definition_root: spec/fixtures/test_cases/concatenation/definitions
+  bundle: true
+  compress: true
+  version: false

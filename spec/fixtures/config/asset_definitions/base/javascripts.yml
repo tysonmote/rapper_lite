@@ -1,0 +1,15 @@
+--- !omap
+- root: spec/fixtures/javascripts
+- asset_tag_root: /javascripts/assets
+- component_tag_root: /javascripts
+- suffix: js
+- assets: !omap
+  - single_file: !omap
+    - files:
+      - simple_1
+    - version: 98bc
+  - multiple_files: !omap
+    - files:
+      - simple_1
+      - subfolder/simple_2
+    - version: f3d9

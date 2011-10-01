@@ -1,0 +1,11 @@
+--- !omap 
+- root: spec/fixtures/stylesheets
+- asset_tag_root: /stylesheets/assets
+- component_tag_root: /stylesheets
+- suffix: css
+- assets: !omap 
+    - multiple_files: !omap 
+        - files: 
+          - simple_1
+          - foobar_doesnt_exist
+        - version: 1e17
