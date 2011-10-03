@@ -16,4 +16,9 @@ module RapperLite::Utils
     end
     system "cat #{source_files.join( " " )} > #{destination_file}"
   end
+
+  def config_key?( key )
+    %w( root destination ).include?( key )
+  end
 end
+
