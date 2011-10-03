@@ -29,7 +29,7 @@ module RapperLite
         source = File.expand_path( self.root( type ) )
         
         definition.each do |name, spec|
-          next if name == "root" || name == "destination"
+          next if self.config_key?( name )
           next unless self.needs_packaging?( type, name )
           
           source_files = self.file_paths( type, name )
@@ -48,3 +48,4 @@ module RapperLite
     end
   end
 end
+

@@ -19,7 +19,7 @@ module RapperLite::Versioning
   def refresh_versions
     [:css, :js].each do |type|
       @definitions[type].each do |name, spec|
-        next if name == "root" || name == "destination"
+        next if self.config_key?( name )
         @definitions[type][name]["version"] = self.version( type, name )
       end
     end
