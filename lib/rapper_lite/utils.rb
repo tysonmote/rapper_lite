@@ -14,6 +14,10 @@ module RapperLite::Utils
 
   # True if the given string is a reserved config key name.
   def config_key?( key )
-    %w( root destination compress ).include?( key )
+    self.config_keys.include?( key )
+  end
+  
+  def config_keys
+    %w( root destination compress )
   end
 end

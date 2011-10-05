@@ -1,19 +1,44 @@
 #!/usr/bin/env ruby
-# 
-require File.join( File.expand_path( File.dirname(__FILE__) ), '../lib/rapper_lite' )
 
-def config_path
-  return ARGV[0] if ARGV[0]
-  ["", "config/"].each do |folder|
-    ["rapper.yml", "assets.yml"].each do |file|
-      path = File.expand_path( file, folder )
-      return path if File.exists?( path )
+require File.join( File.expand_path( File.dirname(__FILE__) ), '../lib/rapper_lite' )
+require "optparse"
+require "fssm"
+require "rb-fsevent"
+
+module RapperLite
+  class CommandLine
+    
+    attr_reader :rapper
+    
+    def initialize
+      args, options = self.parse_args
+      @config_path = args.first || RapperLite::Engine.find_config_path
+      @rapper = self.build_rapper_engine
+      options[:watch] ? @rapper.watch : @rapper.noisy_package
+    end
+    
+    def build_rapper_engine
+      puts "Loading RapperLite with #{@config_path}"
+      RapperLite::Engine.new( @config_path )
+    end
+    
+    protected
+    
+    def parse_args
+      options = {}
+      OptionParser.new do |opts|
+        opts.banner = "Usage: #{File.basename(__FILE__)} [-w|--watch] [-h|--help] [configfile]"
+        opts.on( "-h", "--help", "Print this message") do
+          p opts
+          exit 1
+        end
+        opts.on( "-w", "--watch", "Watch files for changes") do
+          options[:watch] = true
+        end
+      end.parse!
+      [ARGV, options]
     end
   end
-  raise "No config file found."
 end
 
-config = config_path
-puts "Packaging assets, using: #{config}"
-RapperLite::Engine.new( config_path ).package
-puts "Done!"
+RapperLite::CommandLine.new

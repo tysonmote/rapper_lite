@@ -19,11 +19,21 @@ module RapperLite
     include RapperLite::Config
     include RapperLite::Utils
     include RapperLite::Versioning
-
+    
     def initialize( config_path )
       self.load_config( config_path )
     end
-
+    
+    def self.find_config_path
+      ["./", "config/"].each do |folder|
+        ["rapper.yml", "assets.yml"].each do |file|
+          path = File.expand_path( file, folder )
+          return path if File.exists?( path )
+        end
+      end
+      raise "No config file found."
+    end
+    
     def package
       [:js, :css].each do |type|
         definition = @definitions[type]
@@ -41,4 +51,3 @@ module RapperLite
     end
   end
 end
-
