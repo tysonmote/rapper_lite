@@ -23,4 +23,5 @@
     - files:
       - subfolder/simple_2
       - +base
-    - version: ccfcaa7
+      - coffeescript
+    - version: 75d7058

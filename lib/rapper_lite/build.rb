@@ -1,3 +1,5 @@
+require "coffee-script"
+
 module RapperLite::Build
   
   def build_package( type, name )
@@ -8,9 +10,10 @@ module RapperLite::Build
     # Convert any CoffeeScript to JS
     if type == :js
       source_paths.map! do |source_path|
-        if File.extname( source_path ) == "coffee"
+        if File.extname( source_path ) == ".coffee"
           tempfile = Tempfile.new( "rapper_lite_coffee" )
-          tempfile.write( CoffeeScript.compile( source_path ) )
+          tempfile.write( CoffeeScript.compile( File.read( source_path ) ) )
+          tempfile.close
           tempfile.path
         else
           source_path
@@ -24,19 +27,5 @@ module RapperLite::Build
     
     # Cleanup
     tempfiles.each{ |tempfile| tempfile.unlink }
-  end
-  
-  protected
-  
-  def raw_source( type, name )
-    
-  end
-  
-  def source( type, name )
-    
-  end
-  
-  def coffee_to_java( type, name )
-    Tempfile.new( 'rapper' )
   end
 end
