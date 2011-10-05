@@ -1,4 +1,4 @@
-module Rapper
+module RapperLite
   
   # Rake tasks for building / refreshing packages
   class Tasks
@@ -30,6 +30,16 @@ module Rapper
         desc "Package static assets that need re-packaging"
         task :package do
           @rapper.package
+        end
+        
+        desc "Watch static assets and re-package when necessary"
+        task :watch do
+          begin
+            RapperLite::Engine.method( :watch )
+          rescue NameError
+            raise "You need to `require 'rapper_lite/watch_support'`, first."
+          end
+          @rapper.watch
         end
       end
     end

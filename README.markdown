@@ -35,7 +35,11 @@ Bare-bones static asset packager and compressor. Currently supports CSS, JavaScr
 
         $ rapper_lite config/static_assets.yml
 
-    If no config file is found, RapperLite will search for the config file:
+    Watch for changes:
+
+        $ rapper_lite --watch config/static_assets.yml
+
+    If no config file is passed in, RapperLite will search for the config file:
 
         ./rapper.yml
         ./assets.yml
