@@ -1,59 +1,102 @@
-# rapper_lite #
+# RapperLite #
 
-Bare-bones static asset packager and compressor. Currently supports CSS, JavaScript, and CoffeeScript. Uses MD5 versioning to avoid re-compressing packages that don't need to be re-compressed. Uses a simple config file so that you don't have to wrangle wacky comment DSLs in your source code just to join and compress a few files.
+RapperLite is a bare-bones static asset packager and compressor. It currently supports CSS, JavaScript, and CoffeeScript. It uses MD5 versioning to avoid re-compressing packages that don't need to be re-compressed. RapperLite can be set up with a single config file so that you don't have to wrangle wacky comment DSLs in your source code just to join and compress a few files.
 
-## Packaging assets without wanting to claw your eyes out
+## Configuring ##
 
-1. Create a config file:
+Create a YAML file (say, "rapper.yml") that defines your static asset packages like so:
 
-        --- !omap
-        - root: public/javascripts/
-        - destination: public/assets/
-        - compress: true
-        - css: !omap
-          - base: !omap
-            - files:
-              - reset
-              - layout
-              - typography
-              - colores
-            - version: 683e
-        - js: !omap
-          - mootools: !omap
-            - files:
-              - mootools-core
-              - mootools-more
-            - version: f3d9
-          - base_combined: !omap
-            - files:
-              - preloader
-              - +mootools
-              - widgets
-            - version: ccfc
+    --- !omap
+    - root: public/src/
+    - destination: public/assets/
+    - compress: true
+    - css: !omap
+      - base: !omap
+        - files:
+          - reset
+          - layout
+          - typography
+          - colores
+        - version: 683e
+    - js: !omap
+      - mootools: !omap
+        - files:
+          - mootools-core
+          - mootools-more
+        - version: f3d9
+      - base_combined: !omap
+        - files:
+          - preloader
+          - +mootools
+          - widgets
+        - version: ccfc
 
-2. Run rapper lite:
+(Why the excessive use of `omap`? I'm doing this to ensure that the line order is maintained when I write updated version strings to the file. Why maintain order? Two words: merge conflicts.)
 
-        $ rapper_lite config/static_assets.yml
+The above configuration will create the following compressed asset packages when RapperLite is run:
 
-    Watch for changes:
+    * `public/assets/base.css`
+    * `public/assets/mootools.js`
+    * `public/assets/base_combined.js`
 
-        $ rapper_lite --watch config/static_assets.yml
+Component files can be nested in subfolders:
 
-    If no config file is passed in, RapperLite will search for the config file:
+    ...
+    - base: !omap
+      - files:
+        - mootools-core
+        - extras/mootools-more
+        - extras/crazybox
+      - version: f3d9
+    ...
+
+The "css" and "js" nodes of the config can override the "root" and "destination" config variables:
+
+    --- !omap
+    - destination: public/assets/
+    - compress: true
+    - css: !omap
+      - root: public/stylesheets/
+      - base: !omap
+        ...
+    - js: !omap
+      - root: public/javascripts/
+      - base: !omap
+        ...
+
+## Packaging assets ##
+
+You can run RapperLite from the command line:
+
+    $ rapper_lite path/to/config.yml
+    or:
+    $ rapper_lite --watch path/to/config.yml
+
+If no config file is passed in, RapperLite will search for the config file at:
 
         ./rapper.yml
         ./assets.yml
         ./config/rapper.yml
         ./config/assets.yml
 
-3. That's it.
+You can also run RapperLite from Ruby:
 
-Alternatively, you can run Rapper from Ruby:
+    require "rapper_lite"
+    RapperLite::Engine.new( "config/rapper.yml" ).package
 
-        require "rapper_lite"
-        RapperLite::Engine.new( "config/rapper.yml" ).package
+Or use the included Rake tasks by adding this to your `Rakefile`:
 
-When you run `rapper_lite`, the config is automatically updated with the latest version numbers.
+    Rapper::Tasks.new do |config|
+      config[:path] = "config/assets.yml"
+    end
+
+You can specify a custom namespace, if you want:
+
+    Rapper::Tasks.new( :assets ) do |config| ...
+
+## CoffeeScript ##
+
+RapperLite transparently supports CoffeeScript. You don't have to do anything. Refer to the file in your config like you would any regular ol' JavaScript file.
 
 # Development
 
