@@ -7,20 +7,20 @@
     - files:
       - simple_1
       - simple_2
-    - version: 683e
+    - version: 683e7ae
   - base_combined: !omap
     - files:
       - +base
       - simple_1
-    - version: 0bb9
+    - version: 0bb9443
 - js: !omap
   - base: !omap
     - files:
       - simple_1
       - subfolder/simple_2
-    - version: f3d9
+    - version: f3d92a9
   - base_combined: !omap
     - files:
       - subfolder/simple_2
       - +base
-    - version: ccfc
+    - version: ccfcaa7

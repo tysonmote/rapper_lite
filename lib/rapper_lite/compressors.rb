@@ -9,11 +9,11 @@ rescue LoadError; end
 module RapperLite::Compressors
   
   # Compress a file in-place. Relies on the file's suffix to determine type.
-  def compress( file )
+  def compress( file_path )
     opts = {}
     # TODO: Someday this goes away.
-    opts = self.yui_config if file =~ /\.js/
-    RapperLite::Compressors::Compressor.compress( file, opts )
+    opts = self.yui_config if file_path =~ /\.js/
+    RapperLite::Compressors::Compressor.compress( file_path, opts )
   end
   
   protected
