@@ -1,32 +1,18 @@
 module RapperLite::Config
   
-  protected
-  
-  def load_config( config_path )
-    @config_path = config_path
-    @config = YAML.load_file( config_path )
-    @definitions.css = @config["css"]
-    @definitions.js = @config["js"]
-  end
-  
-  def save_config
-    File.open( @config_path, "w" ) do |file|
-      file.puts @config.to_yaml
-    end
-  end
-  
+  # Source path for files of the given type.
   def root( type )
-    assert_type!( type )
-    @definitions.send( type )["root"] || @config["root"] || "."
+    self.config_or_default( "root", type, "." )
   end
   
+  # Destination path for files of the given type.
   def destination( type )
-    assert_type!( type )
-    @definitions.send( type )["destination"] || @config["destination"] || "."
+    self.config_or_default( "destination", type, "." )
   end
   
-  def compress?
-    @config.key?( "compress" ) ? @config["compress"] : false
+  # True if we should compress files of the given type.
+  def compress?( type )
+    self.config_or_default( "compress", type, false )
   end
   
   def yui_config
@@ -40,13 +26,16 @@ module RapperLite::Config
   
   # Array of source files for the given asset package.
   def file_paths( type, name )
-    definition = @definitions[type][name]
-    root = self.root( type )
-    definition["files"].map do |file|
+    @definitions[type][name]["files"].map do |file|
       if file[0] == "+"
+        # Include other asset package
         self.file_paths( type, file[1..-1] )
+      elsif type == :js
+        coffee_path = File.join( self.root( type ), "#{file}.coffee" )
+        js_path = File.join( self.root( type ), "#{file}.js" )
+        File.exists?( coffee_path ) ? coffee_path : js_path
       else
-        File.join( root, "#{file}.#{type}" )
+        File.join( self.root( type ), "#{file}.#{type}" )
       end
     end.flatten
   end
@@ -55,7 +44,29 @@ module RapperLite::Config
     File.join( self.destination( type ), "#{name}.#{type}" )
   end
   
-  def assert_type!( type )
-    raise "wat." unless type == :css || type == :js
+  protected
+  
+  def load_config( config_path )
+    @config_path = config_path
+    @config = YAML.load_file( @config_path )
+    @definitions = {
+      :css => @config["css"],
+      :js => @config["js"]
+    }
+  end
+  
+  # Write in-memory config to file (i.e. just update version strings).
+  def save_config
+    File.open( @config_path, "w" ) do |file|
+      file.puts( @config.to_yaml )
+    end
+  end
+  
+  def config_or_default( key, type, default )
+    if @definitions[type].key?( key )
+      @definitions[type][key]
+    else
+      @config.key?( key ) ? @config[key] : default
+    end
   end
 end

@@ -4,16 +4,21 @@ require 'tempfile'
 # Asset versioning methods.
 module RapperLite::Versioning
   
+  def needs_packaging?( type, name )
+    return true unless File.exists?( self.destination_path( type, name ) )
+    self.version( type, name ) != @definitions[type][name]["version"]
+  end
+  
   protected
   
-  def needs_packaging?( type, name )
-    definition = @definitions[type][name]
-    destination_file = self.destination_path( type, name )
-    return true unless File.exists?( destination_file )
-    
-    current_version = definition["version"]
-    new_version = self.version( type, name )
-    new_version != current_version
+  # MD5 version of the concatenated raw asset package.
+  def version( type, name )
+    source_paths = self.file_paths( type, name )
+    destination_file = Tempfile.new( 'rapper' )
+    self.join_files( source_paths, destination_file.path )
+    version = Digest::MD5.file( destination_file.path ).to_s[0,7]
+    destination_file.unlink
+    version
   end
   
   def refresh_versions
@@ -23,16 +28,5 @@ module RapperLite::Versioning
         @definitions[type][name]["version"] = self.version( type, name )
       end
     end
-  end
-  
-  # MD5 version of the concatenated asset package.
-  def version( type, name )
-    definition = @definitions[type][name]
-    source_files = self.file_paths( type, name )
-    destination_file = Tempfile.new( 'rapper' )
-    self.join_files( source_files, destination_file.path )
-    version = Digest::MD5.file( destination_file.path ).to_s[0,4]
-    destination_file.unlink
-    version
   end
 end
