@@ -1,6 +1,6 @@
 # rapper_lite #
 
-Bare-bones static asset packager and compressor. Currently supports CSS and JavaScript. Uses MD5 versioning to avoid re-compressing packages that don't need to be re-compressed. Uses a simple config file so that you don't have to wrangle wacky comment DSLs in your source code just to join and compress a few files.
+Bare-bones static asset packager and compressor. Currently supports CSS, JavaScript, and CoffeeScript. Uses MD5 versioning to avoid re-compressing packages that don't need to be re-compressed. Uses a simple config file so that you don't have to wrangle wacky comment DSLs in your source code just to join and compress a few files.
 
 ## Packaging assets without wanting to claw your eyes out
 
