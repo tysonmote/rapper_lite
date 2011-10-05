@@ -13,3 +13,10 @@ b = 2;
 function b() {
   return false;
 }
+(function() {
+  ({
+    x: function() {
+      return true;
+    }
+  });
+}).call(this);
