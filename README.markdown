@@ -1,6 +1,6 @@
 # rapper_lite #
 
-Bare-bones static asset packager and compressor. Currently supports CSS and JavaScript. Uses MD5 versioning to avoid re-compressing packages that don't need to be re-compressed. Uses a simple config file so that you don't have to wrangle wacky comment DSLs in your source code just to join and compress a few files.
+Bare-bones static asset packager and compressor. Currently supports CSS, JavaScript, and CoffeeScript. Uses MD5 versioning to avoid re-compressing packages that don't need to be re-compressed. Uses a simple config file so that you don't have to wrangle wacky comment DSLs in your source code just to join and compress a few files.
 
 ## Packaging assets without wanting to claw your eyes out
 
@@ -33,7 +33,18 @@ Bare-bones static asset packager and compressor. Currently supports CSS and Java
 
 2. Run rapper lite:
 
-        $ rapper_lite config/assets.yml
+        $ rapper_lite config/static_assets.yml
+
+    Watch for changes:
+
+        $ rapper_lite --watch config/static_assets.yml
+
+    If no config file is passed in, RapperLite will search for the config file:
+
+        ./rapper.yml
+        ./assets.yml
+        ./config/rapper.yml
+        ./config/assets.yml
 
 3. That's it.
 
@@ -53,6 +64,7 @@ Rapper's got a Gemfile. You know what to do.
 
 ## Version history
 
+* **0.1.0** - Add CoffeeScript support. Re-write `rapper_lite` command to allow watching for changes. Add watch support to Rake task.
 * **0.0.2** - Fix gem homepage link.
 * **0.0.1** - Initial release.
 

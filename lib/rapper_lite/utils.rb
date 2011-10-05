@@ -1,19 +1,23 @@
-# Rapper-wide utility methods for working with paths, files, etc.
 module RapperLite::Utils
-  
+
   protected
-  
-  # Concatenate one or more files. Uses <code>cat</code>.
-  # 
-  # @param [Array<String>,String] source_files A  path or array of paths to
-  # files to concatenate.
-  # 
-  # @param [String] destination_file Destination for concatenated output.
-  def join_files( source_files, destination_file )
-    source_files = Array( source_files )
-    source_files.any? do |path|
+
+  # Concatenate one or more files by shelling out to `cat`.
+  def join_files( source_paths, destination_path )
+    source_paths = Array( source_paths )
+    source_paths.each do |path|
       raise "#{path} doesn't exist." unless File.exists?( path )
     end
-    system "cat #{source_files.join( " " )} > #{destination_file}"
+    
+    system "cat #{source_paths.join( " " )} > #{destination_path}"
+  end
+
+  # True if the given string is a reserved config key name.
+  def config_key?( key )
+    self.config_keys.include?( key )
+  end
+  
+  def config_keys
+    %w( root destination compress )
   end
 end
