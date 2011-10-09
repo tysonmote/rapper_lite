@@ -107,6 +107,7 @@ Rapper's got a Gemfile. You know what to do.
 
 ## Version history
 
+* **0.1.3** - Don't crash when errors are raised while watching for changes.
 * **0.1.2** - Update Gemfile, add "rapper-lite" command.
 * **0.1.1** - Turns out you can only release `master`, which `jeweler` doesn't tell you. Oops.
 * **0.1.0** - Add CoffeeScript support. Re-write `rapper_lite` command to allow watching for changes. Add watch support to Rake task.
