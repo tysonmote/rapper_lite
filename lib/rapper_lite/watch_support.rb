@@ -5,11 +5,15 @@ module RapperLite
       rapper = self
       rapper.noisy_package
       FSSM.monitor( rapper.common_root, '**/*.{css,js,coffee}' ) do
-        component_files = rapper.all_component_paths
-        update do |base, relative|
-          if component_files.include?( File.join( base, relative) )
-            rapper.noisy_package
+        begin
+          component_files = rapper.all_component_paths
+          update do |base, relative|
+            if component_files.include?( File.join( base, relative) )
+              rapper.noisy_package
+            end
           end
+        rescue FSSM::CallbackError
+          # no-op
         end
       end
     end
