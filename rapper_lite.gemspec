@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "rapper_lite"
-  s.version = "0.1.4"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tyson Tate"]
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
     "spec/fixtures/src/coffeescript.coffee",
     "spec/fixtures/src/simple_1.css",
     "spec/fixtures/src/simple_1.js",
-    "spec/fixtures/src/simple_2.css",
+    "spec/fixtures/src/simple_2.sass",
     "spec/fixtures/src/subfolder/simple_2.js",
     "spec/fixtures/testcases/combination/expected/base.css",
     "spec/fixtures/testcases/combination/expected/base.js",
@@ -123,6 +123,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<fssm>, ["~> 0.2.7"])
       s.add_runtime_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_runtime_dependency(%q<coffee-script>, ["~> 2.2.0"])
+      s.add_runtime_dependency(%q<sass>, ["~> 3.1.10"])
       s.add_development_dependency(%q<rake>, ["= 0.9.2"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3.2"])
       s.add_development_dependency(%q<yard>, [">= 0"])
@@ -133,6 +134,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<fssm>, ["~> 0.2.7"])
       s.add_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_dependency(%q<coffee-script>, ["~> 2.2.0"])
+      s.add_dependency(%q<sass>, ["~> 3.1.10"])
       s.add_dependency(%q<rake>, ["= 0.9.2"])
       s.add_dependency(%q<rspec>, ["~> 1.3.2"])
       s.add_dependency(%q<yard>, [">= 0"])
@@ -144,6 +146,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<fssm>, ["~> 0.2.7"])
     s.add_dependency(%q<rb-fsevent>, [">= 0"])
     s.add_dependency(%q<coffee-script>, ["~> 2.2.0"])
+    s.add_dependency(%q<sass>, ["~> 3.1.10"])
     s.add_dependency(%q<rake>, ["= 0.9.2"])
     s.add_dependency(%q<rspec>, ["~> 1.3.2"])
     s.add_dependency(%q<yard>, [">= 0"])
