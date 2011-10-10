@@ -4,7 +4,7 @@ module RapperLite
     def watch
       rapper = self
       rapper.noisy_package
-      FSSM.monitor( rapper.common_root, '**/*.{css,js,coffee}' ) do
+      FSSM.monitor( rapper.common_root, '**/*.{css,js,coffee,sass}' ) do
         begin
           component_files = rapper.all_component_paths
           update do |base, relative|
