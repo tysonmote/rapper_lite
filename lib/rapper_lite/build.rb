@@ -12,6 +12,8 @@ module RapperLite::Build
       source_paths.map! do |source_path|
         if File.extname( source_path ) == ".coffee"
           tempfile = Tempfile.new( "rapper_lite_coffee" )
+          # Keep reference to prevent GC (premature unlinking)
+          tempfiles << tempfile
           tempfile.write( CoffeeScript.compile( File.read( source_path ) ) )
           tempfile.close
           tempfile.path

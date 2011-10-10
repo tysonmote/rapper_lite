@@ -107,6 +107,7 @@ Rapper's got a Gemfile. You know what to do.
 
 ## Version history
 
+* **0.1.4** - Prevent premature unlinking of temp files used when processing CoffeesScript files. Bad GC, bad!
 * **0.1.3** - Don't crash when errors are raised while watching for changes.
 * **0.1.2** - Update Gemfile, add "rapper-lite" command.
 * **0.1.1** - Turns out you can only release `master`, which `jeweler` doesn't tell you. Oops.
