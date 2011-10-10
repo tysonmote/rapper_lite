@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rapper_lite"
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tyson Tate"]
-  s.date = "2011-10-09"
+  s.date = "2011-10-10"
   s.description = "Simple static asset packaging. Compresses files only when they're updated."
   s.email = "tyson@tysontate.com"
   s.executables = ["rapper-lite", "rapper_lite"]
