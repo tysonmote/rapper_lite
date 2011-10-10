@@ -1,4 +1,5 @@
 require "coffee-script"
+require "sass"
 
 module RapperLite::Build
   
@@ -7,20 +8,11 @@ module RapperLite::Build
     destination_file = self.destination_path( type, name )
     tempfiles = []
     
-    # Convert any CoffeeScript to JS
-    if type == :js
-      source_paths.map! do |source_path|
-        if File.extname( source_path ) == ".coffee"
-          tempfile = Tempfile.new( "rapper_lite_coffee" )
-          # Keep reference to prevent GC (premature unlinking)
-          tempfiles << tempfile
-          tempfile.write( CoffeeScript.compile( File.read( source_path ) ) )
-          tempfile.close
-          tempfile.path
-        else
-          source_path
-        end
-      end
+    source_paths.map! do |source_path|
+      tempfile, path = self.process( source_path )
+      # Keep reference so GC doesn't unlink file
+      tempfiles << tempfile if tempfile
+      path
     end
     
     # Join files and compress if needed
@@ -30,4 +22,33 @@ module RapperLite::Build
     # Cleanup
     tempfiles.each{ |tempfile| tempfile.unlink }
   end
+  
+  protected
+  
+  # Returns tuple: [nil or Tempfile, path to file]
+  def process( source_path )
+    tempfile = nil
+    path = source_path
+    
+    if engine = self.conversion_engine( source_path )
+      tempfile = Tempfile.new( "rapper_lite_source" )
+      if engine == Sass
+        tempfile.write( engine.compile( File.read( source_path ), :syntax => :sass ) )
+      else
+        tempfile.write( engine.compile( File.read( source_path ) ) )
+      end
+      tempfile.close
+      path = tempfile.path
+    end
+    
+    [tempfile, path]
+  end
+  
+  def conversion_engine( source_path )
+    {
+      ".sass" => Sass,
+      ".coffee" => CoffeeScript
+    }[File.extname( source_path )]
+  end
+  
 end

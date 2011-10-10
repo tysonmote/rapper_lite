@@ -34,8 +34,10 @@ module RapperLite::Config
         coffee_path = File.join( self.root( type ), "#{file}.coffee" )
         js_path = File.join( self.root( type ), "#{file}.js" )
         File.exists?( coffee_path ) ? coffee_path : js_path
-      else
-        File.join( self.root( type ), "#{file}.#{type}" )
+      else # CSS
+        sass_path = File.join( self.root( type ), "#{file}.sass" )
+        css_path = File.join( self.root( type ), "#{file}.css" )
+        File.exists?( sass_path ) ? sass_path : css_path
       end
     end.flatten
   end

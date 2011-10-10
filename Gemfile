@@ -4,6 +4,7 @@ gem "yui-compressor", "~> 0.9.6"
 gem "fssm", "~> 0.2.7"
 gem "rb-fsevent"
 gem "coffee-script", "~> 2.2.0"
+gem "sass", "~> 3.1.10"
 
 group :development do
   gem "rake", "= 0.9.2"
