@@ -7,7 +7,7 @@ gem "coffee-script", "~> 2.2.0"
 gem "sass", "~> 3.1.10"
 
 group :development do
-  gem "rake", "= 0.9.2"
+  gem "rake", "12.3.3"
   gem "rspec", "~> 1.3.2"
   gem "yard"
   gem "rdiscount", "~> 1.6.8"
